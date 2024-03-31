@@ -16,7 +16,8 @@ import {
   PatternTwo
 } from "./pattern";
 import {
-  Carousel
+  Carousel,
+  Slider
 } from "./animation";
 
 import {
@@ -49,5 +50,6 @@ export {
   Input,
   Select,
   Radio,
-  Checkbox
+  Checkbox,
+  Slider
 }

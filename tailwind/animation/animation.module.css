@@ -1,0 +1,7 @@
+.caption-bg {
+  background: linear-gradient(to right,rgba(0,0,0,0.9),transparent);
+}
+
+.noSelect {
+  user-select: none
+}
