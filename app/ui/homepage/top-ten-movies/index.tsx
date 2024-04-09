@@ -52,13 +52,13 @@ const index = ()=>{
       duration: "2:00:16"
     }
   ];
-  const {AnimationReducer}:any = useSelector(response=>response);
+  const {AnimationReducer}:any = useSelector((response:any)=>response);
   const {image} = AnimationReducer
   const design = (
     <>
        <div className="ease-in duration-300" style={{
         height: 600,
-        background: `url(${image ? image : 'sanddust2.jpg'})`,
+        backgroundImage: `url(${image ? image : 'sanddust2.jpg'})`,
         backgroundSize: "cover"
       }}>
         <div className="h-full p-8" style={{
