@@ -1,5 +1,8 @@
 "use client"
 import VideoJs from "video.js";
+// import "videojs-contrib-quality-levels";
+import "videojs-hls-quality-selector";
+import "videojs-hotkeys";
 import 'video.js/dist/video-js.css';
 import '@videojs/themes/dist/city/index.css';
 import '@videojs/themes/dist/fantasy/index.css';
@@ -19,12 +22,23 @@ export default function Index() {
     controls: true,
     sources: [
       {
-        src: '/demo.mp4',
-        type: 'video/mp4'
+        src: '/output/index.mpd',
+        type: 'application/dash+xml'
       }
     ],
     fluid: true,
     playbackRates: [0.5,1,1.5,2,2.5]
+  }
+
+  const onReady = (player:any)=>{
+    player.hotkeys({
+      alwaysCaptureHotkeys:true,
+      seekStep:10,
+      enableVolume:true
+    })
+    player.hlsQualitySelector({
+      displayCurrentQuality:true
+    })
   }
 
   useEffect(() => {
@@ -32,10 +46,10 @@ export default function Index() {
     const videoElement = document.createElement("video-js");
     videoElement.classList.add('video-js');
     videoElement.classList.add('vjs-big-play-centered');
-    videoElement.classList.add('vjs-theme-fantasy');
+    videoElement.classList.add('vjs-theme-city');
     videoRef.current.appendChild(videoElement);
     console.log(options)
-    player.current = VideoJs(videoElement,options);
+    player.current = VideoJs(videoElement,options,()=>onReady(player.current));
     return ()=>{
       player.current.dispose();
       player.current = null;

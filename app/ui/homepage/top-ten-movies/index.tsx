@@ -52,7 +52,7 @@ const index = ()=>{
       duration: "2:00:16"
     }
   ];
-  const {AnimationReducer}:any = useSelector((response:any)=>response);
+  const AnimationReducer:any = useSelector((response:any)=>response.AnimationReducer);
   const {image} = AnimationReducer
   const design = (
     <>

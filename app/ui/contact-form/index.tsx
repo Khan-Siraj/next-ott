@@ -1,20 +1,43 @@
 import {
-  Form,
-  Email,
-  Input
+  Form
 } from "@/tailwind";
 
 const index = ()=>{
+  const fields = [
+    {
+      component: "input",
+      props: {
+        name: "fullname",
+        placeholder: "Your name"
+      }
+    },
+    {
+      component: "input",
+      props: {
+        name: "mobile",
+        placeholder: "Mobile",
+        type: "number"
+      }
+    },
+    {
+      component: "email",
+      props: {
+        name: "email",
+        placeholder: "Email"
+      }
+    },
+    {
+      component: "input",
+      props: {
+        name: "message",
+        placeholder: "Message",
+        textarea: true
+      }
+    },
+  ];
   const design = (
     <>
-      <Form>
-        <div className="flex flex-col gap-5 mb-5">
-          <Input type="text" name="name" placeholder="Your name" />
-          <Email placeholder="email@gmail.com" />
-          <Input type="number" name="mobile" placeholder="Mobile" />
-          <Input type="text" name="message" textarea placeholder="Message" />
-        </div>
-      </Form>
+      <Form fields={fields} />
     </>
   );
   return design;
