@@ -1,4 +1,4 @@
-import Movies from "@/app/ui/admin-panel/movies";
+import Movies from "@ui/admin-panel/movies";
 export default function Index(){
     return (
       <>

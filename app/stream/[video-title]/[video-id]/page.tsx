@@ -1,5 +1,5 @@
 "use client"
-import VideoPlayer from "@/app/ui/video-player";
+import VideoPlayer from "@ui/video-player";
 export default function Index() {
   const design = (
     <>

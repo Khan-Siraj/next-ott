@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/app/ui/logo";
+import Logo from "@ui/logo";
 import { IconButton } from "@/tailwind";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";

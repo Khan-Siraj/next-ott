@@ -1,5 +1,5 @@
-import Homepage from "@/app/ui/homepage";
-import Template from "@/app/ui/template";
+import Homepage from "@ui/homepage";
+import Template from "@ui/template";
 export default function Home() {
   return (
     <Template>

@@ -1,6 +1,6 @@
-import Logo from "@/app/ui/logo";
+import Logo from "@ui/logo";
 import Image from "next/image";
-import ContactForm from "@/app/ui/contact-form";
+import ContactForm from "@ui/contact-form";
 import {
   IconButton
 } from "..";
