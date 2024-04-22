@@ -13,6 +13,8 @@
     "@react-spring/web": "^9.7.3",
     "@videojs/themes": "^1.0.1",
     "animate.css": "^4.1.1",
+    "aws-sdk": "^2.1600.0",
+    "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "formik": "^2.4.5",
     "material-icons": "^1.13.12",

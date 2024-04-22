@@ -3,7 +3,17 @@ import {
   Dialog,
   Form
 } from "@/tailwind";
-
+import useS3 from "@lib/hooks/userS3";
+import {
+  create
+} from "./movies.action";
+import {
+  useEffect
+} from "react";
+import {
+  useDispatch,
+  useSelector
+} from "react-redux";
 const index = ()=>{
   const options = [
       {
@@ -70,8 +80,7 @@ const index = ()=>{
         name: "video",
         className: "bg-gray-100 rounded-sm border-0 py-3",
         label: "Video file",
-        accept: ".mp4",
-        multiple: true
+        accept: ".mp4"
       }
     },
     {
@@ -95,8 +104,69 @@ const index = ()=>{
     },
   ];
 
-  const onSubmit = (values:any)=>{
-    console.log(values);
+  const dispatch = useDispatch();
+  const MoviesReducer = useSelector((response:any)=>response.MoviesReducer);
+
+  // @ts-ignore
+  useEffect(()=>{
+    if(MoviesReducer.success)
+    {
+      dispatch({
+        type: "CLOSE_DIALOG"
+      });
+    }
+    return ()=>{}
+  },[MoviesReducer]);
+
+  const upload = async (fileProps:any,values:any)=>{
+    const log = [];
+    for(let data of fileProps)
+    {
+      const upload = useS3(values[data.name],data.key);
+
+      const uploading = await upload();
+
+      uploading.on('httpUploadProgress',(e)=>{
+        let loaded = e.loaded;
+        let total = e.total;
+        let p = Math.floor((loaded*100)/total);
+        console.log(p+"%");
+      });
+
+      try {
+        const file = await uploading.promise();
+        data.success = true;
+        data.s3 = file;
+        log.push(data);
+      }
+      catch(err)
+      {
+        data.success = false;
+        data.err = err;
+        log.push(data);
+      }
+    }
+    return log;
+  }
+
+  const onSubmit = async (values:any)=>{
+    const fileProps = [
+      {
+        name: "thumbnail",
+        key: "demo/thumb.png"
+      },
+      {
+        name: "video",
+        key: "demo/vid.mp4"
+      }
+    ];
+    const log = await upload(fileProps,values);
+    for(let data of fileProps)
+    {
+      values[data.name] = data.key
+    }
+    // @ts-ignore
+    dispatch(create(values));
   }
 
   const MovieForm = ()=>{
