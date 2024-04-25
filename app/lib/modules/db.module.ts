@@ -4,5 +4,5 @@ const options = {
   useUnifiedTopology: true
 }
 // @ts-ignore
-mongoose.connect(process.env.DB_URL,options);
+mongoose.connect(process.env.NEXT_PUBLIC_DB_URL,options);
 export default mongoose;

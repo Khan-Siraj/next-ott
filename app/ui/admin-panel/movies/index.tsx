@@ -5,7 +5,7 @@ import {
 } from "@/tailwind";
 import useS3 from "@lib/hooks/userS3";
 import {
-  create
+  createStreaming
 } from "./movies.action";
 import {
   useEffect
@@ -150,14 +150,17 @@ const index = ()=>{
   }
 
   const onSubmit = async (values:any)=>{
+    const videoName = values.video.name;
+    let folder = videoName.split(".")[0];
+
     const fileProps = [
       {
         name: "thumbnail",
-        key: "demo/thumb.png"
+        key: "original/"+folder+"/"+folder+".png"
       },
       {
         name: "video",
-        key: "demo/vid.mp4"
+        key: "original/"+folder+"/"+videoName
       }
     ];
     const log = await upload(fileProps,values);
@@ -166,7 +169,7 @@ const index = ()=>{
       values[data.name] = data.key
     }
     // @ts-ignore
-    dispatch(create(values));
+    dispatch(createStreaming(values));
   }
 
   const MovieForm = ()=>{
