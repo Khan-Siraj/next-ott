@@ -1,4 +1,4 @@
-const card = ({children,title=null,actions=null})=>{
+const card = ({children,title=null,actions=null}:any)=>{
   const design = (
     <>
       <div className="p-4 shadow-lg rounded-md border bg-white">

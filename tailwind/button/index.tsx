@@ -5,6 +5,7 @@ const sample:any = {
   "o-error": "border border-red-600 px-4 py-2 text-red-600 rounded-sm shadow-sm",
   "o-warning": "border border-orange-600 px-4 py-2 text-orange-600 rounded-sm shadow-sm",
   "o-success": "border border-green-600 px-4 py-2 text-green-600 rounded-sm shadow-sm",
+  "disabled": "bg-gray-200 px-4 py-2 text-white rounded-sm shadow-sm",
   "primary": "bg-teal-600 px-4 py-2 text-white rounded-sm shadow-sm",
   "secondary": "bg-blue-600 px-4 py-2 text-white rounded-sm shadow-sm",
   "info": "bg-cyan-600 px-4 py-2 text-white rounded-sm shadow-sm",

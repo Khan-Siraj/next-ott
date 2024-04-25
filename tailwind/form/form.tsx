@@ -13,7 +13,7 @@ import {
   Select,
   Email
 } from "./fields";
-const form = ({fields,grid=1,gap=4,...rest}:Readonly<any>)=>{
+const form = ({disabled=false,fields,grid=1,gap=4,...rest}:Readonly<any>)=>{
   const schema:any = {
     email: yup.string().required("This field is required").email("Enter a valid email"),
     password: yup.string().required("This field is required"),
@@ -69,7 +69,7 @@ const form = ({fields,grid=1,gap=4,...rest}:Readonly<any>)=>{
                 <div className={`grid grid-cols-${grid} gap-${gap}`}>
                   <Fields formik={formik} />
                 </div>
-                <Button type="submit" theme="error" className="w-fit">SUBMIT</Button>
+                <Button disabled={disabled} type="submit" theme={`${disabled ? 'disabled' : 'error'}`} className="w-fit">SUBMIT</Button>
               </Form>
             );
           }
