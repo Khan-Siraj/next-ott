@@ -21,6 +21,7 @@ export const createJob = (data:any)=>{
           key: data.video
         }
       });
+
       data["job_id"] = response.data.Job.Id;
       dispatch({
         type: JOB_SUCCESS,
@@ -36,7 +37,7 @@ export const createJob = (data:any)=>{
     {
       dispatch({
         type: JOB_FAILED,
-        payload: err.response
+        payload: err
       });
     }
   }

@@ -9,12 +9,12 @@ export async function GET(req: NextRequest) {
     if (error)
         return NextResponse.json({ error }, { status: 424 })
 
-    return NextResponse.json({ data }, { status: 200 })
+    return NextResponse.json({jobs:data }, { status: 200 })
 }
 export async function POST(req: NextRequest) {
     let { data, error } = await create(req);
     if (error)
         return NextResponse.json({ error }, { status: 424 })
 
-    return NextResponse.json({ data }, { status: 200 })
+    return NextResponse.json({Job: data?.Job }, { status: 200 })
 }

@@ -1,9 +1,22 @@
 "use client";
 import Logo from "@ui/logo";
-import { IconButton } from "@/tailwind";
+import { IconButton, Button } from "@/tailwind";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 export default function Index({ children }: any) {
+  const url = usePathname();
+  const menus = [
+    {
+      label: "movies",
+      href: "/admin-panel/movies"
+    },
+    {
+      label: "media jobs",
+      href: "/admin-panel/jobs"
+    }
+  ];
   const [sidebar, setSidebar]: any = useState(null);
   const [section, setSection]: any = useState(null);
   const [open, setOpen] = useState(true);
@@ -21,13 +34,31 @@ export default function Index({ children }: any) {
       );
     }
   }, [open]);
+  const Menu = ({item}:any)=>{
+    const m = (
+      <>
+        <div>
+          <Button>
+            <Link href={item.href} legacyBehavior>
+              <a className="text-black capitalize">{item.label}</a>
+            </Link>
+          </Button>
+        </div>
+      </>
+    );
+    return m;
+  }
   return (
     <>
       <div className="min-h-screen flex">
         <div
           className={`bg-white text-black shadow-2xl transition-width overflow-x-hidden ${sidebar}`}
         >
-          Sidebar
+          {
+            menus.map((item,index)=>{
+              return <Menu key={index} item={item} />
+            })
+          }
         </div>
         <div className={`bg-slate-900 transition-width ${section}`}>
           <nav className="px-5 py-3 bg-gray-100 flex justify-between items-center">
@@ -40,14 +71,14 @@ export default function Index({ children }: any) {
               >
                 format_align_right
               </IconButton>
-
-              <IconButton
-                theme="secondary"
-                size="sm"
-                onClick={() => dispatch({ type: "OPEN_DIALOG" })}
-              >
-                add
-              </IconButton>
+              {
+                url === "/admin-panel/movies" ?
+                <IconButton
+                  theme="secondary"
+                  size="sm"
+                  onClick={()=>dispatch({type: "OPEN_DIALOG"})}
+                >add</IconButton> : null
+              }
             </div>
           </nav>
           <div className="p-5">{children}</div>
