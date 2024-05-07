@@ -1,0 +1,9 @@
+.main {
+  background: url(/poster.jpg);
+  background-size: 40%
+}
+
+
+.opacity {
+  background: rgba(0,0,0,0.7)
+}
