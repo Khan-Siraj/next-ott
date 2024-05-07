@@ -2,7 +2,8 @@
 import {
   Dialog,
   Form,
-  Card
+  Card,
+  IconButton
 } from "@/tailwind";
 import useS3 from "@lib/hooks/userS3";
 import {
@@ -16,6 +17,8 @@ import {
   useDispatch,
   useSelector
 } from "react-redux";
+import useSwr from "swr";
+import axios from "axios";
 const index = ()=>{
   const [submit,setSubmit] = useState(false);
   const [filename,setFilename] = useState(null);
@@ -180,6 +183,25 @@ const index = ()=>{
     // @ts-ignore
     dispatch(createJob(values));
   }
+  const getData = async (url:string)=>{
+    try {
+      const response = await axios({
+        method: "get",
+        url
+      });
+      return response.data;
+    }
+    catch(err:any)
+    {
+      return err.response.data;
+    }
+  }
+
+  const {data,error} = useSwr("/api/movies",getData,{refreshInterval: 5000});
+
+  useEffect(()=>{
+    console.log(data)
+  },[data]);
 
   const MovieForm = ()=>{
     const design = (
@@ -243,11 +265,50 @@ const index = ()=>{
     return step;
   }
 
+  const deleteMe = async (id:string)=>{
+    await axios({
+      method: "delete",
+      url: "/api/movies/"+id
+    });
+  }
+
+  const openDialog = ()=>{
+    dispatch({
+      type: "OPEN_DIALOG"
+    })
+  }
+
+  const MovieList = ({item}:any)=>{
+    const movie = (
+      <>
+        <Card>
+          <img src="https://wallpaperaccess.com/full/2918041.jpg" width="100%" />
+          <h1 className="text-lg font-bold capitalize text-black">{item.title}</h1>
+          <p className="text-black">{item.desc}</p>
+          <p className="text-black">{item.category}</p>
+          <p className="text-black">{item.keywords}</p>
+          <div className="flex gap-2 mt-3">
+            <IconButton theme="secondary" size="sm" onClick={openDialog}>edit</IconButton>
+            <IconButton theme="error" size="sm" onClick={()=>deleteMe(item._id)}>delete</IconButton>
+          </div>
+        </Card>
+      </>
+    );
+    return movie;
+  }
+
   const design = (
     <>
       {
         submit ?  <Steps /> : null
       }
+       <div className="grid sm:grid-cols-4 gap-6">
+        {
+          data && data.map((item:any,index:number)=>{
+            return <MovieList key={index} item={item} />
+          })
+        }
+      </div>
       <Dialog>
         <MovieForm />
       </Dialog>
