@@ -14,9 +14,9 @@ export const Email = ({label=null,...rest})=>{
     <>
       <div className={`flex flex-col col-span-${rest.width}`}>
         {
-          label ? <label className="font-bold text-sm mb-2 text-left">{label}</label> : null
+          label ? <label className="font-bold text-sm mb-2 text-left text-black">{label}</label> : null
         }
-        <Field name="email" type="email" className="rounded-sm" {...rest} />
+        <Field name="email" type="email" className="rounded-sm border border-black p-2 text-black" {...rest} />
         <ErrorMessage name="email" component="p" className="text-left text-red-500 text-sm font-bold p-0 m-0" />
       </div>
     </>
@@ -27,21 +27,21 @@ export const Email = ({label=null,...rest})=>{
 export const Password = ({...rest})=>{
   const password = (
     <>
-      <Field name="password" type="password" className="rounded-sm" {...rest} />
+      <Field name="password" type="password" className="rounded-sm border border-black p-2 text-black" {...rest} />
       <ErrorMessage name="password" component="p" className="text-red-500 text-sm font-bold p-0 m-0" />
     </>
   );
   return password;
 }
 
-export const Input = ({label=null,name,type="text",textarea=false,...rest}:Readonly<any>)=>{
+export const Input = ({label=null,name,type="text",textarea=false,...rest}:any)=>{
   const input = (
     <>
-      <div className={clsx('flex flex-col', rest.width && `col-span-${rest.width}`)}>
+      <div className={`flex flex-col col-span-${rest.width}`}>
         {
-          label ? <label className="font-bold text-sm mb-2 text-left">{label}</label> : null
+          label ? <label className="font-bold text-sm mb-2 text-left text-black">{label}</label> : null
         }
-        <Field {...rest} name={name} type={type} as={textarea ? "textarea" : null} />
+        <Field {...rest} name={name} type={type} className="rounded-sm border border-black p-2 text-black" as={textarea ? "textarea" : null} />
         <ErrorMessage name={name} component="p" className="text-red-500 text-left text-sm font-bold p-0 m-0" />
       </div>
     </>
@@ -49,7 +49,7 @@ export const Input = ({label=null,name,type="text",textarea=false,...rest}:Reado
   return input;
 }
 
-export const UploadInput = ({label=null,formik,...rest}:Readonly<any>)=>{
+export const UploadInput = ({label=null,formik,...rest}:any)=>{
   const handleFile = (e:any)=>{
     let name = e.target.name;
     let multiple = e.target.multiple;
@@ -70,7 +70,7 @@ export const UploadInput = ({label=null,formik,...rest}:Readonly<any>)=>{
   return input;
 }
 
-export const Select = ({label=null,name,data,...rest}:Readonly<any>)=>{
+export const Select = ({label=null,name,data,...rest}:any)=>{
   const select = (
     <>
       <div className={`flex flex-col col-span-${rest.width}`}>
@@ -79,7 +79,7 @@ export const Select = ({label=null,name,data,...rest}:Readonly<any>)=>{
         }
         <Field name={name} as="select" {...rest}>
           {
-            data.map((item:any,index:any)=>{
+            data.map((item:any,index:number)=>{
               return <option key={index} value={item.value}>{item.label}</option>
             })
           }
@@ -95,7 +95,7 @@ export const Radio = ({name,data}:any)=>{
   const radio = (
     <>
       {
-        data.map((item:any,index:any)=>{
+        data.map((item:any,index:number)=>{
           return (
             <>
               <div className="flex gap-2 items-center" key={index}>
@@ -112,7 +112,7 @@ export const Radio = ({name,data}:any)=>{
   return radio;
 }
 
-export const Checkbox = ({name,value,label,...rest}:Readonly<any>)=>{
+export const Checkbox = ({name,value,label,...rest}:any)=>{
   const checkbox = (
     <>
       <div className="flex gap-2 items-center">
