@@ -4,14 +4,14 @@ export const authConfig = {
     pages:{
         signIn:'/login'
     },
-    callbacks:{
-        authorized({auth,request:{nextUrl}}){
-            const isLoggedIn = !!auth?.user;
-            if(isLoggedIn)
-            return Response.redirect(new URL('/',nextUrl));
-            return true
-        }
-    },
+    // callbacks:{
+    //     authorized({auth,request:{nextUrl}}){
+    //         const isLoggedIn = !!auth?.user;
+    //         if(isLoggedIn)
+    //         return Response.redirect(new URL('/',nextUrl));
+    //         return true
+    //     }
+    // },
     providers:[],
 
 } satisfies NextAuthConfig;

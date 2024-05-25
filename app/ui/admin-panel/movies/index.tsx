@@ -200,7 +200,7 @@ const index = ()=>{
   const {data,error} = useSwr("/api/movies",getData,{refreshInterval: 5000});
 
   useEffect(()=>{
-    console.log(data)
+    // console.log(data)
   },[data]);
 
   const MovieForm = ()=>{

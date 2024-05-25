@@ -8,7 +8,6 @@ import Logo from "../logo";
 import {useSession} from "next-auth/react";
 const index = ({children}:any)=>{
   const {data,status}:any = useSession();
-  console.log(data)
   // consts
   const menus = {
       brand: <Logo />,
@@ -69,7 +68,7 @@ const index = ({children}:any)=>{
         status === "authenticated" ? afterLogin : beforeLogin
       } theme="error" size="sm">
       {
-        status === "authenticated" ? <img src={data && data.user.image} className="rounded-full" /> : 'person'
+        status === "authenticated" ? <img src={data && data.user.image ? data.user.image : 'https://www.nicepng.com/png/full/186-1866063_dicks-out-for-harambe-sample-avatar.png'} className="rounded-full" /> : 'person'
       }
       </IconButton>
     }

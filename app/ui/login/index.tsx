@@ -4,10 +4,18 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Style from "./login.module.css";
-const Login = () => {
+const Login = ({csrf}:any) => {
   const [error, setError] = useState(false);
   const router = useRouter();
   const fields = [
+    {
+      component: "input",
+      props: {
+        name: "csrfToken",
+        type: "hidden",
+        value:csrf
+      },
+    },
     {
       component: "email",
       props: {
@@ -32,7 +40,7 @@ const Login = () => {
       redirect: false,
     });
     if (!error) {
-      router.push("/");
+      router.replace("/");
     } else {
       setError(true);
       setTimeout(() => setError(false), 3000);

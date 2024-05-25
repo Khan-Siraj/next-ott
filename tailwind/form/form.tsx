@@ -18,6 +18,7 @@ const form = ({disabled=false,fields,grid=1,gap=4,...rest}:Readonly<any>)=>{
     email: yup.string().required("This field is required").email("Enter a valid email"),
     password: yup.string().required("This field is required"),
     fullname: yup.string().required("This field is required"),
+    name: yup.string().required("This field is required"),
     message: yup.string().required("This field is required"),
     mobile: yup.string().required("This field is required"),
     title: yup.string().required("This field is required"),
