@@ -15,6 +15,10 @@ export default function Index({ children }: any) {
     {
       label: "media jobs",
       href: "/admin-panel/jobs"
+    },
+    {
+      label: "plans",
+      href: "/admin-panel/plans"
     }
   ];
   const [sidebar, setSidebar]: any = useState(null);

@@ -5,6 +5,7 @@ import AnimationReducer from "@/tailwind/animation/animation.reducer";
 import DialogReducer from "@/tailwind/dialog/dialog.reducer";
 import MoviesReducer from "@ui/admin-panel/movies/movies.reducer";
 import RegisterReducer from "@ui/register/register.reducer";
+import PlansReducer from "@ui/admin-panel/plans/plans.reducer";
 const middlewares = applyMiddleware(logger,thunk)
 
 const root = combineReducers({
@@ -12,7 +13,8 @@ const root = combineReducers({
     AnimationReducer,
     DialogReducer,
     MoviesReducer,
-    RegisterReducer
+    RegisterReducer,
+    PlansReducer
     
 })
 
