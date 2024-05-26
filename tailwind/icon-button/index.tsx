@@ -48,14 +48,14 @@ const button = ({
     return (
       <>
         <Link href={item.href}>
-          <button
+          <div
             // @ts-ignore
             onClick={item.logout ? () => signOut() : null}
             className="flex items-center gap-3 w-full text-black pl-4 py-2 capitalize hover:bg-red-500 hover:text-white"
           >
             <Icon>{item.icon}</Icon>
             {item.label}
-          </button>
+          </div>
         </Link>
       </>
     );

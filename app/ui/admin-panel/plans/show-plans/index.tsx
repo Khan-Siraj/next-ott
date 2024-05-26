@@ -3,13 +3,72 @@ import axios from "axios";
 import {
   Card,
   Button,
-  IconButton
+  Dialog,
+  IconButton,
+  Form
 } from "@/tailwind";
-
+import {useDispatch} from "react-redux";
+import {useState} from "react";
 const index = ()=>{
+  const dispatch = useDispatch();
+  const [formData,setFormData] = useState({
+    title: '',
+    emi: '',
+    amount: '',
+    desc: '',
+    _id: ''
+  });
+  const fields = [
+    {
+      component: "input",
+      props: {
+        name: "_id",
+        type: "hidden"
+      }
+    },
+    {
+      component: "input",
+      props: {
+        name: "title",
+        type: "text",
+        label: "Enter plan name",
+        placeholder: "Starter"
+      }
+    },
+    {
+      component: "input",
+      props: {
+        name: "emi",
+        type: "text",
+        label: "Emi name",
+        placeholder: "Monthly"
+      }
+    },
+    {
+      component: "input",
+      props: {
+        name: "amount",
+        type: "number",
+        label: "Amount",
+        placeholder: "1000"
+      }
+    },
+    {
+      component: "input",
+      props: {
+        name: "desc",
+        type: "text",
+        label: "Description",
+        textarea: true
+      }
+    }
+  ];
   const getData = async (url:string)=>{
     try {
-        const response = await axios.get(url)
+        const response = await axios({
+          method: "get",
+          url,
+        });
         return response.data;
     }
     catch(err:any)
@@ -18,11 +77,19 @@ const index = ()=>{
     }
   }
   const {data,error} = useSWR("/api/plan",getData,{refreshInterval: 5000});
+
   const trash = async (id:string)=>{
     await axios({
       method: "delete",
       url: "/api/plan/"+id
     })
+  }
+
+  const edit = (item:any)=>{
+    setFormData(item);
+    dispatch({
+      type: "OPEN_DIALOG"
+    });
   }
 
   const ShowPlans = ({item}:any)=>{
@@ -42,8 +109,7 @@ const index = ()=>{
           </div>
 
           <div className="flex gap-3 mt-3">
-            <IconButton theme="secondary">edit</IconButton>
-            {/* @ts-ignore */}
+            <IconButton theme="secondary" onClick={()=>edit(item)}>edit</IconButton>
             <IconButton theme="warning" onClick={()=>trash(item._id)}>delete</IconButton>
           </div>
           </div>
@@ -51,6 +117,19 @@ const index = ()=>{
       </>
     );
     return plan;
+  }
+
+  const update = async (values:any,{resetForm}:any)=>{
+    const {_id} = values;
+    await axios({
+      method: "put",
+      url: '/api/plan/'+_id,
+      data: values
+    });
+    resetForm();
+    dispatch({
+      type: "CLOSE_DIALOG"
+    })
   }
 
   const design = (
@@ -62,6 +141,9 @@ const index = ()=>{
           }):null
         }
       </div>
+      <Dialog title="Edit and save">
+        <Form fields={fields} formData={formData} btnType="edit" onSubmit={update}/>
+      </Dialog>
     </>
   );
   return design;

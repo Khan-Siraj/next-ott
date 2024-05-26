@@ -29,6 +29,10 @@ const index = ({children}:any)=>{
           href: "/blog"
         },
         {
+          label: "PLANS",
+          href: "/plans"
+        },
+        {
           label: "CONTACT",
           href: "/contact"
         }
