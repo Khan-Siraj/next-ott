@@ -3,7 +3,6 @@ import Google from "next-auth/providers/google"
 import Credentials from 'next-auth/providers/credentials';
 import axios from "axios";
 import { authConfig } from "./auth.config";
-// import { authConfig } from './auth.config';
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
@@ -29,5 +28,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
     }),
     Google
-  ]
+  ],
+  callbacks:{
+    jwt:({token,user}:any)=>{
+      if(user){
+        token['role'] = user.role 
+      }
+      return token
+    },
+    session:({token,session}:any)=>{
+      if(token){
+        session.user['role'] = token.role
+      }
+      return session
+    }
+  }
 })

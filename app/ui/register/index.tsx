@@ -58,7 +58,7 @@ export default function Register(){
     <>
       <div className={`min-h-screen ${Style.main}`}>
         <div className={`min-h-screen flex items-center justify-center ${Style.opacity}`}>
-          <div className="w-3/12">
+          <div className="md:w-3/12">
             <Card>
               <div className="flex flex-col gap-4 p-3">
                 {

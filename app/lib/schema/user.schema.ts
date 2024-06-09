@@ -15,6 +15,10 @@ const userSchema = new Schema({
     type: String,
     required: [true,"Password is required"]
   },
+  role: {
+    type: String,
+    required: [true,"Role is required"]
+  },
   image: String,
   created_at: {
     type: Date,

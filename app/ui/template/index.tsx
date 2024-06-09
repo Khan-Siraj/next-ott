@@ -53,7 +53,7 @@ const index = ({children}:any)=>{
   const afterLogin = [
     {
       label: data && data.user.name,
-      href: "/profile",
+      href: data && data.user.role === 'ADMIN'? "/admin-panel/plans" :"/profile",
       icon: "person"
     },
     {

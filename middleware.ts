@@ -1,9 +1,5 @@
-import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
- 
-export default NextAuth(authConfig).auth;
- 
-export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
-};
+import {stackMiddlewares} from "./middlewares/stackMiddlewares";
+import {withAdmin}  from "./middlewares/withAdmin";
+import { withAuth } from "./middlewares/withAuth";
+import { withRegister } from "./middlewares/withRegister";
+export default stackMiddlewares([withAuth,withAdmin,withRegister]);

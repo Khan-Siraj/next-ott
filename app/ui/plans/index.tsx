@@ -1,6 +1,11 @@
+"use client";
 import { Card, Button } from "@/tailwind";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 export default function Plans({ data }: any) {
   const Plan = ({ item, index }: any) => {
+    const {data:session} = useSession();
+    const router = useRouter()
     const color = [
       {
         backgroundColor: "#21D4FD !important",
@@ -15,6 +20,14 @@ export default function Plans({ data }: any) {
         color: "white !important",
       },
     ];
+
+    const buyNow = ()=>{
+      if(session)
+      alert("Payment Service Not Available !")
+      else
+      router.push('/login')
+      return false
+    }
     const plan = (
       <>
         <Card className="shadow-lg border p-4 text-center relative">
@@ -37,10 +50,9 @@ export default function Plans({ data }: any) {
             {item.desc}
           </pre>
           <Button
+            onClick={buyNow}
             style={{
-              backgroundColor: "#21D4FD",
-              backgroundImage:
-                "linear-gradient(19deg, #21D4FD 0%, #B721FF 100%)",
+              backgroundColor: "#DC2626",
               color: "white",
             }}
             className="my-5 rounded-md"
@@ -56,9 +68,7 @@ export default function Plans({ data }: any) {
               borderBottomLeftRadius: "20px",
               borderBottomRightRadius: "20px",
               padding: "10px 40px",
-              backgroundColor: "#21D4FD",
-              backgroundImage:
-                "linear-gradient(19deg, #21D4FD 0%, #B721FF 100%)",
+              backgroundColor: "#DC2626",
               color: "white",
             }}
             className="text-xl uppercase font-bold"

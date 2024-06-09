@@ -1,8 +1,18 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
+import jwt from "jsonwebtoken";
 export async function GET() {
-  return NextResponse.json({ message: 'Hello - GET' });
+  const token = jwt.sign({
+    data:{
+      name:"Siraj Khan",
+      role:"ADMIN"
+    }
+  },
+  // @ts-ignore
+  process.env.NEXT_PUBLIC_ADMIN_SECRET,
+  {expiresIn:600}
+  );
+  return NextResponse.json({ token},{status:200});
 }
 
 export async function POST(request:NextRequest) {
