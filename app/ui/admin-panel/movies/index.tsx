@@ -193,7 +193,7 @@ const index = ()=>{
     }
     catch(err:any)
     {
-      return err.response.data;
+      return [];
     }
   }
 
@@ -282,14 +282,16 @@ const index = ()=>{
     const movie = (
       <>
         <Card>
+          <div className="p-3">
           <img src="https://wallpaperaccess.com/full/2918041.jpg" width="100%" />
           <h1 className="text-lg font-bold capitalize text-black">{item.title}</h1>
-          <p className="text-black">{item.desc}</p>
+          <p className="text-black">{item.desc.slice(0,100)}...</p>
           <p className="text-black">{item.category}</p>
           <p className="text-black">{item.keywords}</p>
           <div className="flex gap-2 mt-3">
             <IconButton theme="secondary" size="sm" onClick={openDialog}>edit</IconButton>
             <IconButton theme="error" size="sm" onClick={()=>deleteMe(item._id)}>delete</IconButton>
+          </div>
           </div>
         </Card>
       </>
@@ -300,7 +302,11 @@ const index = ()=>{
   const design = (
     <>
       {
-        submit ?  <Steps /> : null
+        submit ? 
+         <div className="mb-3">
+          <Steps />
+         </div>
+         : null
       }
        <div className="grid sm:grid-cols-4 gap-6">
         {

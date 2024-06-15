@@ -1,6 +1,5 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { MiddlewareFactory } from "./types"
-import { jwtVerify, SignJWT } from "jose";
 import {getToken} from 'next-auth/jwt';
 const secret:any = process.env.AUTH_SECRET
 export const withAdmin: MiddlewareFactory = (next) => {
@@ -20,21 +19,3 @@ export const withAdmin: MiddlewareFactory = (next) => {
       return next(request, _next);
     };
 };
-
-export const getSecretKey = ()=>{
-    const secret = process.env.AUTH_SECRET
-    if(!secret || secret.length === 0)
-    throw new Error("The enviroment veriable AUTH_SECRET not set.")
-
-    return secret
-}
-
-export const verifyToken = async (token:string)=>{
-    try {
-        const verified = await jwtVerify(token!,new TextEncoder().encode(getSecretKey()))
-        return verified.payload
-    } catch (error) {
-      console.log(error)
-        throw new Error("Your token has expired.")
-    }
-}

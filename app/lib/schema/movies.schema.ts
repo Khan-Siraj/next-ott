@@ -7,7 +7,6 @@ const moviesSchema = new Schema({
   duration: String,
   actors_name: String,
   thumbnail: String,
-  video: String,
   category: String,
   keywords: String,
   job_id: String,

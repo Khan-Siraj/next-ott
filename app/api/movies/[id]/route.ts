@@ -5,6 +5,7 @@ import {
     trash,
     update
 } from "@lib/controllers/movies.controller"
+import { validateAdmin } from '@/middlewares/secureAdminApi';
 
 export async function GET(req:NextRequest,{ params }:any) {
     let {data,error}  = await fetchById(req,params)
@@ -19,6 +20,11 @@ export async function GET(req:NextRequest,{ params }:any) {
   }
   
 export async function DELETE(req:NextRequest,{ params }:any) {
+    try {
+        await validateAdmin(req)
+    } catch (error) {
+        return NextResponse.json({ error:'Unauthorized Access !' }, { status: 401 })
+    }
     let {data,error}  = await trash(req,params)
     if(error)
     return NextResponse.json(error,{status:400})
@@ -27,6 +33,11 @@ export async function DELETE(req:NextRequest,{ params }:any) {
 }
 
 export async function PUT(req:NextRequest,{ params }:any) {
+    try {
+        await validateAdmin(req)
+    } catch (error) {
+        return NextResponse.json({ error:'Unauthorized Access !' }, { status: 401 })
+    }
     let {data,error}  = await update(req,params)
     if(error)
     return NextResponse.json(error,{status:400})

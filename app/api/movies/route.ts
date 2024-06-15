@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import {create, fetch} from "@lib/controllers/movies.controller"
+import { validateAdmin } from '@/middlewares/secureAdminApi';
 export async function POST(req: NextRequest) {
+    try {
+        await validateAdmin(req)
+    } catch (error) {
+        return NextResponse.json({ error:'Unauthorized Access !' }, { status: 401 })
+    }
     let { data, error } = await create(req);
     if (error)
         return NextResponse.json({ error }, { status: 424 })
